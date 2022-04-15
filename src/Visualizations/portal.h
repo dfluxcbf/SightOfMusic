@@ -1,8 +1,6 @@
 #pragma once
 #include "visualization_mode.h"
 
-#define _DEVELOPING_ Portal
-
 class Portal : public VisualizationMode
 {
     float radius, rotation,
@@ -10,13 +8,14 @@ class Portal : public VisualizationMode
         sinAng1, sinAng2,
         lineLength,
         f1 = 0, f2 = 0, f3 = 0,
-        f1Acc = 0, f2Acc = 0;
-    float centerY, centerX;
+        f1Acc = 0, f2Acc = 0,
+        centerY, centerX,
+        fps, avg;
     int index = 0;
     ofColor fillColor, edgeColor;
 
 public:
-    Portal(FftConfig* fftConfig) : VisualizationMode("Portal", fftConfig, 1)
+    Portal(FftConfig* fftConfig) : VisualizationMode("Portal", fftConfig)
     {
         _sensibility = 140;
         _dtSpeed = 3E-1;
@@ -32,6 +31,7 @@ public:
         fillColor.setSaturation(100);
         fillColor.setBrightness(255);
         ofSetCircleResolution(nBands_combined);
+        addLayerFunction([&] { drawDefaultLayer0(); });
     }
     ~Portal() {}
 
@@ -41,8 +41,6 @@ public:
     }
     void keyPressed(int key) {}
     void keyReleased(int key) {}
-
-    float fps, avg;
     void update() {
         fps = ofGetFrameRate();
         avg = averagef(_combinedFft, nBands_combined);
@@ -58,9 +56,10 @@ public:
 
         fillColor.setHue(fmodf(dt * 125, 255.f));
     }
+
+private:
     void drawDefaultLayer0()
     {
-        //ofClear(0);
         index = 0;
         ofPushMatrix();
         ofTranslate(halfWidth + centerX, halfHeight + centerY);
@@ -118,13 +117,6 @@ public:
                 halfWidth * cosAng2);
             ofEndShape();
         }
-        //ofSetColor(255, 255, 255, 1);
-        //ofDrawCircle(0, 0, radius);
-        //ofSetColor(255, 255, 255);
-        //ofDrawCircle(0, 0, radius * avg / 20);
         ofPopMatrix();
     }
-    void drawLayer1() {}
-    void drawLayer2() {}
-    void drawDebugLayer() {}
 };

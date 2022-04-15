@@ -5,8 +5,13 @@
 
 class TEST_MODE : public VisualizationMode
 {
+	ofColor barColor = ofColor::fromHsb(0, 255, 255);
+	float barLength;
+	ofRectangle rect;
+	ofPolyline polyline;
+	ofPoint elementPosition;
 public:
-	TEST_MODE(FftConfig* fftConfig) : VisualizationMode("TEST", fftConfig, 1)
+	TEST_MODE(FftConfig* fftConfig) : VisualizationMode("TEST", fftConfig)
 	{
 		_sensibility = 70;
 		_dtSpeed = 5;
@@ -17,10 +22,12 @@ public:
 		barColor.setSaturation(255);
 		barColor.setBrightness(255);
 		_windowResized();
+		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
 	void deconstruct() {}
-
 	void update() {}
+
+private:
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
@@ -40,8 +47,6 @@ public:
 			ofDrawRectangle(rect);;
 		}
 
-		ofPolyline polyline;
-		ofPoint elementPosition;
 
 		// Push vertices to polyline
 		polyline.clear();
@@ -63,15 +68,6 @@ public:
 		ofEndShape();
 		polyline.draw();
 	}
-	void drawLayer1() {}
-	void drawLayer2() {}
-	void drawDebugLayer() {}
-
-private:
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	float barLength;
-	ofRectangle rect;
-
 	void windowResized()
 	{
 		barLength = halfWidth / nBands;

@@ -3,8 +3,13 @@
 
 class DancingWaves : public VisualizationMode
 {
+	const size_t N_WAVES = 50;
+	ofColor barColor = ofColor::fromHsb(0, 255, 255);
+	float* waves;
+	float wavesSize, smallRadius, waveDistance;
+
 public:
-	DancingWaves(FftConfig* fftConfig) : VisualizationMode("DacingWaves", fftConfig, 1)
+	DancingWaves(FftConfig* fftConfig) : VisualizationMode("DacingWaves", fftConfig)
 	{
 		_sensibility = 50;
 		_dtSpeed = 2,0;
@@ -21,6 +26,7 @@ public:
 		_windowResized();
 		waves = (float*)malloc(N_WAVES * nBands_combined * sizeof(float));
 		memset(waves, 0, N_WAVES * nBands_combined * sizeof(float));
+		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
 	~DancingWaves()
 	{
@@ -34,8 +40,8 @@ public:
 	}
 	void keyPressed(int key) {}
 	void keyReleased(int key) {}
-
 	void update() {}
+
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
@@ -93,17 +99,8 @@ public:
 		}
 		ofEndShape();
 	}
-	void drawLayer1() {}
-	void drawLayer2() {}
-	void drawDebugLayer() {}
 
 private:
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	float* waves;
-	float wavesSize;
-	const size_t N_WAVES = 50;
-	float smallRadius, waveDistance;
-
 	void dampWaves()
 	{
 		for (int i = N_WAVES - 1; i > 0; i--)

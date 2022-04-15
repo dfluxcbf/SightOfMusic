@@ -3,8 +3,14 @@
 
 class SuperNova : public VisualizationMode
 {
+	const float DAMP = 1.0175;
+	const size_t N_SPARKS = 7;
+	ofColor barColor = ofColor::fromHsb(0, 255, 255);
+	float* sparks;
+	float barLength, sparkSize, damp, dampIncrement;
+
 public:
-	SuperNova(FftConfig* fftConfig) : VisualizationMode("SuperNova", fftConfig, 1)
+	SuperNova(FftConfig* fftConfig) : VisualizationMode("SuperNova", fftConfig)
 	{
 		_sensibility = 300;
 		_dtSpeed = 6;
@@ -17,6 +23,8 @@ public:
 		_windowResized();
 		sparks = (float*)malloc(N_SPARKS * nBands * sizeof(float));
 		memset(sparks, 0, N_SPARKS * nBands * sizeof(float));
+		addLayerFunction([&] { drawDefaultLayer0(); });
+		addLayerFunction([&] { dampSparks(); });
 	}
 	~SuperNova()
 	{
@@ -30,8 +38,9 @@ public:
 	}
 	void keyPressed(int key) {}
 	void keyReleased(int key) {}
-
 	void update() {}
+
+private:
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
@@ -48,7 +57,7 @@ public:
 			barColor.setBrightness(225);
 			ofSetColor(barColor);
 			lineSize = _sensibility * _combinedFft[i];
-			angle = PI / 2 + (i+ 0.5) * PI / (nBands_combined -1);
+			angle = PI / 2 + (i + 0.5) * PI / (nBands_combined - 1);
 			sin_ = sinf(angle);
 			cos_ = cosf(angle);
 			ofDrawLine(
@@ -69,8 +78,8 @@ public:
 			for (int j = 0; j < N_SPARKS; j++)
 			{
 				barColor.setHue(hue_);
-				barColor.setSaturation(140 * (j+1) / N_SPARKS);
-				barColor.setBrightness(50+50 * (j+1) / N_SPARKS);
+				barColor.setSaturation(140 * (j + 1) / N_SPARKS);
+				barColor.setBrightness(50 + 50 * (j + 1) / N_SPARKS);
 				ofSetColor(barColor);
 				sparkPosition = lineSize + 50 * j;
 				angle = PI / 2 + (i + 0.5) * PI / (nBands_combined - 1);
@@ -94,22 +103,10 @@ public:
 			}
 		}
 	}
-	void drawLayer1() {}
-	void drawLayer2() {}
-	void drawDebugLayer() {}
-
-private:
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	float barLength;
-	float* sparks;
-	float sparkSize;
-	const float DAMP = 1.0175;
-	const size_t N_SPARKS = 7;
-
 	void dampSparks()
 	{
-		float damp = DAMP;
-		float dampIncrement = 8;
+		damp = DAMP;
+		dampIncrement = 8;
 		for (int i = 0; i < nBands_combined; i++)
 		{
 			damp = 1 + (DAMP - 1) / (dampIncrement + 1);

@@ -4,12 +4,7 @@
 
 #include "ofMain.h"
 #include "../utils.h"
-
-#ifdef _DEBUG
-#define N_LAYERS 4 //Last layer is for debug
-#else
-#define N_LAYERS 3
-#endif
+#include "../logging.h"
 
 struct FftConfig
 {
@@ -23,16 +18,14 @@ class VisualizationMode
 {
 public:
 	const string _name;
-	const size_t _nLayers;
 
-	VisualizationMode(string name, FftConfig* fftConfig, size_t nLayers) : _name(name), _nLayers(nLayers)
+	VisualizationMode(string name, FftConfig* fftConfig) : _name(name)
 	{
 		_fft = fftConfig->fft;
 		_fftBands = fftConfig->fftBands;
 		_nBands = _fftBands;
 		LOG("______________________________________________");
 		std::cout << "Starting Visualization: " << _name << std::endl;
-		assert(nLayers >= 1);
 	}
 	virtual ~VisualizationMode()
 	{
@@ -42,42 +35,33 @@ public:
 		ofSetFrameRate(NULL);
 		ofSetLineWidth(1);
 		ofFill();
-		for (int i = 0; i < N_LAYERS; i++)
+		for (int i = 0; i < layers.size(); i++)
 		{
 			layers[i].destroy();
 		}
+#ifdef _DEBUG
+		if (debugLayer.isAllocated()) debugLayer.destroy();
+#endif
 	}
 
 	void draw()
 	{
-		//TODO: Vector of functions
-		layers[0].begin();
-		drawDefaultLayer0();
-		layers[0].end();
-		if (_nLayers <= 2)
+		for (int i = 0; i < layerFunctions.size(); i++)
 		{
-			layers[1].begin();
-			drawLayer1();
-			layers[1].end();
-		}
-		if (_nLayers <= 3)
-		{
-			layers[2].begin();
-			drawLayer2();
-			layers[2].end();
+			layers[i].begin();
+			layerFunctions[i]();
+			layers[i].end();
+			layers[i].draw(0,0);
 		}
 #ifdef _DEBUG
-		if (usesDebugLayer)
+		if (debugLayerFunction != NULL)
 		{
-			layers[3].begin();
-			drawDebugLayer();
-			layers[3].end();
+			debugLayer.begin();
+			debugLayerFunction();
+			debugLayer.end();
+			debugLayer.draw(0, 0);
 		}
 #endif
-		for (int i = 0; i < N_LAYERS; i++)
-		{
-			if(layers[i].isAllocated()) layers[i].draw(0, 0);
-		}
 	}
 
 	void _keyPressed(int key)
@@ -97,7 +81,7 @@ public:
 		_height = ofGetHeight();
 		_halfWidth = _width / 2;
 		_halfHeight = _height / 2;
-		allocateFboLayers();
+		reallocateLayers();
 		windowResized();
 	}
 
@@ -132,17 +116,48 @@ protected:
 	virtual void keyReleased(int key) = 0;
 	virtual void windowResized() = 0;
 	virtual void update() = 0;
-	virtual void drawDefaultLayer0() = 0;
-	virtual void drawLayer1() = 0;
-	virtual void drawLayer2() = 0;
+
+	void addLayerFunction(std::function<void()> newLayerFunction)
+	{
+		layerFunctions.push_back(newLayerFunction);
+		ofFbo newLayer;
+		newLayer.allocate(width, height, GL_RGBA);
+		newLayer.begin();
+		ofClear(0);
+		newLayer.end();
+		layers.push_back(newLayer);
+	}
 #ifdef _DEBUG
-	virtual void drawDebugLayer() = 0;
+	void setDebugLayerFunction(std::function<void()> newLayerFunction)
+	{
+		debugLayerFunction = newLayerFunction;
+		if(!debugLayer.isAllocated()) debugLayer.allocate(width, height, GL_RGBA);
+		debugLayer.begin();
+		ofClear(0);
+		debugLayer.end();
+	}
 #endif
 
-	void enableDebugLayers()
+	void reallocateLayers()
 	{
-		usesDebugLayer = true;
-		layers[3].allocate(width, height, GL_RGBA);
+		for (int i = 0; i < layers.size(); i++)
+		{
+			layers[i].clear();
+			layers[i].allocate(width, height, GL_RGBA);
+			layers[i].begin();
+			ofClear(0);
+			layers[i].end();
+		}
+#ifdef _DEBUG
+		if (debugLayerFunction != NULL)
+		{
+			debugLayer.clear();
+			debugLayer.allocate(width, height, GL_RGBA);
+			debugLayer.begin();
+			ofClear(0);
+			debugLayer.end();
+		}
+#endif
 	}
 
 	void configAutoDamper(float damper)
@@ -238,10 +253,7 @@ protected:
 	}
 
 private:
-	const float sensibilityDelta = 0.01;
-
-	ofFbo layers[4];
-	bool usesDebugLayer = false;
+	const float sensibilityDelta = 0.01; //1%
 
 	size_t _fftBands;
 	
@@ -264,9 +276,11 @@ private:
 
 	float _width, _height, _halfWidth, _halfHeight;
 
+	std::vector<ofFbo> layers;
 	std::vector<std::function<void()>> layerFunctions;
 #ifdef _DEBUG
-	std::vector<std::function<void()>> debugLayerFunctions;
+	ofFbo debugLayer;
+	std::function<void()> debugLayerFunction = NULL;
 #endif
 
 	void defaultKeyPressed(int key)
@@ -315,37 +329,5 @@ private:
 			}
 			_combinedFft[i] /= _nCombinedBands;
 		}
-	}
-
-	void allocateFboLayers()
-	{
-		//TODO: Vector of functions
-		layers[0].allocate(width, height, GL_RGBA);
-		layers[0].begin();
-		ofClear(0);
-		layers[0].end();
-		if (_nLayers <= 2)
-		{
-			layers[1].allocate(width, height, GL_RGBA);
-			layers[1].begin();
-			ofClear(0);
-			layers[1].end();
-		}
-		if (_nLayers <= 3)
-		{
-			layers[2].allocate(width, height, GL_RGBA);
-			layers[2].begin();
-			ofClear(0);
-			layers[2].end();
-		}
-#ifdef _DEBUG
-		if (usesDebugLayer)
-		{
-			layers[3].allocate(width, height, GL_RGBA);
-			layers[3].begin();
-			ofClear(0);
-			layers[3].end();
-		}
-#endif
 	}
 };

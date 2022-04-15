@@ -3,8 +3,12 @@
 
 class RainbowBars : public VisualizationMode
 {
+	ofColor barColor = ofColor::fromHsb(0, 255, 255);
+	float barLength;
+	ofRectangle rect;
+
 public:
-	RainbowBars(FftConfig* fftConfig) : VisualizationMode("RainbowBars", fftConfig, 1)
+	RainbowBars(FftConfig* fftConfig) : VisualizationMode("RainbowBars", fftConfig)
 	{
 		_sensibility = 220;
 		_dtSpeed = 5;
@@ -16,6 +20,7 @@ public:
 		barColor.setSaturation(255);
 		barColor.setBrightness(255);
 		_windowResized();
+		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
 
 	void windowResized()
@@ -37,6 +42,8 @@ public:
 		return minPtr;
 	}
 	void update() {}
+
+private:
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
@@ -44,7 +51,7 @@ public:
 		float hue_;
 		for (int i = 0; i < nBands; i++)
 		{
-			barSize = 1+_sensibility * (_dampedFft[i] - find_smallest_number(_dampedFft, nBands));
+			barSize = 1 + _sensibility * (_dampedFft[i] - find_smallest_number(_dampedFft, nBands));
 			hue_ = dt + 255.0 * (float)i / (float)nBands;
 			hue_ = fmodf(hue_, 255);
 
@@ -66,12 +73,4 @@ public:
 			ofDrawRectangle(rect);
 		}
 	}
-	void drawLayer1() {}
-	void drawLayer2() {}
-	void drawDebugLayer() {}
-
-private:
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	float barLength;
-	ofRectangle rect;
 };

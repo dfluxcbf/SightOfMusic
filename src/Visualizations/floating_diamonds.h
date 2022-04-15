@@ -3,18 +3,16 @@
 
 class FloatingDiamonds : public VisualizationMode
 {
-private:
-	float increase, currentSize, spacing, hue, x, y;
-	const float nSqrSide = 10;
+	const float nSqrSide = 10, permanence = 200, growLevel = 1.2;
 	const size_t nSquares = (int)(nSqrSide * nSqrSide + (nSqrSide - 1) * (nSqrSide - 1));
+	float increase, currentSize, spacing, hue, x, y;
 	size_t index;
 	float* pulse;
-	const float permanence = 200;
-	const float growLevel = 1.2;
 	ofColor edgeC, fillC;
 	ofRectangle rect;
+
 public:
-	FloatingDiamonds(FftConfig* fftConfig) : VisualizationMode("FloatingDiamonds", fftConfig, 1)
+	FloatingDiamonds(FftConfig* fftConfig) : VisualizationMode("FloatingDiamonds", fftConfig)
 	{
 		_sensibility = 15;
 		_dtSpeed = 5;
@@ -26,9 +24,7 @@ public:
 		_windowResized();
 		pulse = (float*)malloc(nBands * sizeof(float));
 		memset(pulse, 0, nBands * sizeof(float));
-		fillC.setSaturation(191); //75%
-		edgeC.setSaturation(191); //75%
-		edgeC.setBrightness(230); //90%
+		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
 
 	void windowResized()
@@ -37,7 +33,6 @@ public:
 	}
 	void keyPressed(int key) {}
 	void keyReleased(int key) {}
-	
 	void update()
 	{
 		increase = 0;
@@ -48,10 +43,13 @@ public:
 		}
 	}
 
-
+private:
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
+		fillC.setSaturation(191); //75%
+		edgeC.setSaturation(191); //75%
+		edgeC.setBrightness(230); //90%
 		for (float i = -nSqrSide + 1; i <= nSqrSide - 1; i++)
 		{
 			for (float j = -(increase + 1) / 2; j < (increase + 1) / 2; j++) {
@@ -77,12 +75,8 @@ public:
 				ofPopMatrix();
 				index++;
 			}
-
 			if (i < 0) increase += 2;
 			else increase -= 2;
 		}
 	}
-	void drawLayer1() {}
-	void drawLayer2() {}
-	void drawDebugLayer() {}
 };

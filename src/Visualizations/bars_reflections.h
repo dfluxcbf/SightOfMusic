@@ -3,8 +3,13 @@
 
 class BarsReflection : public VisualizationMode
 {
+	ofColor barColor = ofColor::fromHsb(0, 255, 255),
+		    edgeColor = ofColor(0, 0, 0);
+	float reflectHeight, barLength;
+	ofRectangle rect;
+
 public:
-	BarsReflection(FftConfig* fftConfig) : VisualizationMode("BarsReflection", fftConfig, 1)
+	BarsReflection(FftConfig* fftConfig) : VisualizationMode("BarsReflection", fftConfig)
 	{
 		_sensibility = 900;
 		_dtSpeed = 5;
@@ -17,6 +22,7 @@ public:
 		barColor.setSaturation(100);
 		barColor.setBrightness(180);
 		_windowResized();
+		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
 
 	void windowResized()
@@ -27,8 +33,9 @@ public:
 	}
 	void keyPressed(int key) {}
 	void keyReleased(int key) {}
-
 	void update() {}
+
+private:
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
@@ -86,13 +93,4 @@ public:
 		ofLine(0, reflectHeight, width, reflectHeight);
 		ofSetLineWidth(1);
 	}
-	void drawLayer1() {}
-	void drawLayer2() {}
-	void drawDebugLayer() {}
-
-private:
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	ofColor edgeColor = ofColor(0, 0, 0);
-	float reflectHeight, barLength;
-	ofRectangle rect;
 };

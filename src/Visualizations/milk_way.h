@@ -3,8 +3,16 @@
 
 class MilkWay : public VisualizationMode
 {
+	ofColor barColor = ofColor::fromHsb(0, 255, 255);
+	const size_t nBranches = 8, removeRings = 5;
+	int nRings;
+	bool* pulse;
+	float movAvgFft = 0, rotation = ofRandom(255),
+		  spacing, barSize, hue_, avgFft, n, pulseTrigger,
+		  radius, ringRotation, starAngle, centerDis;
+
 public:
-	MilkWay(FftConfig* fftConfig) : VisualizationMode("SolarSystem", fftConfig, 2)
+	MilkWay(FftConfig* fftConfig) : VisualizationMode("MilkWay", fftConfig)
 	{
 		_sensibility = 40;
 		configAutoDamper(1.03);
@@ -17,8 +25,10 @@ public:
 		_windowResized();
 		pulse = (bool*)malloc(nRings * sizeof(bool));
 		memset(pulse, 0, nRings * sizeof(bool));
+		addLayerFunction([&] {drawDefaultLayer0(); });
+		addLayerFunction([&] {drawLayer1(); });
 #ifdef _DEBUG
-		enableDebugLayers();
+		setDebugLayerFunction([&] {drawDebugLayer(); });
 #endif
 	}
 	~MilkWay()
@@ -34,14 +44,6 @@ protected:
 	}
 	void keyPressed(int key) {}
 	void keyReleased(int key) {}
-
-	float barSize;
-	float hue_;
-	float avgFft;
-	float n;
-	float pulseTrigger;
-	float radius, ringRotation, starAngle, centerDis;
-	float rotation = ofRandom(255);
 	void update()
 	{
 		pulseTrigger = 1.05;
@@ -108,7 +110,6 @@ protected:
 			}
 		}
 	}
-	void drawLayer2() {}
 #ifdef _DEBUG
 	void drawDebugLayer()
 	{
@@ -129,14 +130,6 @@ protected:
 #endif
 
 private:
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	const size_t nBranches = 8;
-	const size_t removeRings = 5;
-	int nRings;
-	float spacing;
-	bool* pulse;
-	float movAvgFft = 0;
-
 	int calcCircleRes(float radius)
 	{
 		return (int)(9.7 + radius / 3.9);
