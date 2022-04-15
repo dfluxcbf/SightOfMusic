@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioCapture\audio_capture.cpp">
+      <Filter>src\AudioCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioCapture\audio_sink.cpp">
+      <Filter>src\AudioCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioCapture\sound_wave.cpp">
+      <Filter>src\AudioCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioCapture\fft_computer.cpp">
+      <Filter>src\AudioCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Visualizations\visualization_loader.cpp">
+      <Filter>src\Visualizations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AudioCapture">
+      <UniqueIdentifier>{dec80f27-b18a-4e6f-8e0e-5328e9c3740a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Visualizations">
+      <UniqueIdentifier>{73760da9-06fc-4a5b-a00b-2d913d4adb66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Visualizations\Modes">
+      <UniqueIdentifier>{4e622111-4faf-49c0-b19a-10117ba2755d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\AudioCapture\audio_capture.h">
+      <Filter>src\AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\audio_sink.h">
+      <Filter>src\AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\sound_wave.h">
+      <Filter>src\AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\logging.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\audio_capture_config.h">
+      <Filter>src\AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\fft_computer.h">
+      <Filter>src\AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\memory_locks.h">
+      <Filter>src\AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\visualization_loader.h">
+      <Filter>src\Visualizations</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\visualization_mode.h">
+      <Filter>src\Visualizations</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\visualization_list.h">
+      <Filter>src\Visualizations</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\bars_reflections.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\rainbow_bars.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\super_nova.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\test_mode.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\dancing_waves.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\milk_way.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\floating_diamonds.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\portal.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>
