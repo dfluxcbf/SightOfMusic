@@ -3,6 +3,8 @@
 #include "AudioCapture/audio_capture.h"
 #include "visualization_mode.h"
 
+#define N_VIS 7
+
 class VisualizationLoader : public ofBaseApp {
 	AudioSink* _sink;
 	float* fft;
@@ -10,8 +12,12 @@ class VisualizationLoader : public ofBaseApp {
 	VisualizationMode* vm;
 	FftConfig fftConfig;
 	int visIndex = 0;
+	size_t visOrder[N_VIS];
+	std::map<char, std::function<void()>> keyActions;
+	
 public:
 	VisualizationLoader(AudioSink* sink);
+	~VisualizationLoader();
 	void NextVisualization(int& index);
 	void SwitchVisualization(int index);
 
@@ -30,4 +36,7 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+
+private:
+	void configLoader();
 };

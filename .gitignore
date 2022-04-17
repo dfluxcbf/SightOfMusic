@@ -28,3 +28,6 @@
 *.exe
 *.out
 *.app
+/.vs/SightOfMusic/v17
+/bin
+/obj/x64

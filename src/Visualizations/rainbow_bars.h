@@ -1,24 +1,29 @@
 #pragma once
 #include "visualization_mode.h"
 
+#define _DEVELOPING_ RainbowBars
+
 class RainbowBars : public VisualizationMode
 {
-	ofColor barColor = ofColor::fromHsb(0, 255, 255);
-	float barLength;
+	ofColor fillColor = ofColor::fromHsb(0, 255, 255);
+	float barLength = 0, minVal = 0, barSize = 0, hue_ = 0;
 	ofRectangle rect;
 
 public:
 	RainbowBars(FftConfig* fftConfig) : VisualizationMode("RainbowBars", fftConfig)
 	{
+		//Settings
 		_sensibility = 220;
-		_dtSpeed = 5;
-		configIgnoredIndices(0,0.4);
-		configAutoDamper(1.09);
-		configAutoRescale(1, -1.f/(nBands*0.98), 0.4);
+		_dtSpeed = 35;
+		configIgnoredIndices(0,0.5);
+		configAutoRescale(1, 0.01f / nBands, 0.4);
+		configAutoDamper(1.04);
+
+		//Initial Graphics settings
 		ofBackground(0, 0, 0);
 		ofFill();
-		barColor.setSaturation(255);
-		barColor.setBrightness(255);
+		fillColor.setSaturation(255);
+		fillColor.setBrightness(255);
 		_windowResized();
 		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
@@ -29,48 +34,43 @@ public:
 		rect.width = barLength;
 		rect.y = halfHeight;
 	}
-	void keyPressed(int key) {}
-	void keyReleased(int key) {}
-	float find_smallest_number(float* random_array, size_t size)
+	void update()
 	{
-		float minPtr = *random_array;
-		for (int i = 1; i < size; i++)
-		{
-			if (*(random_array + i) < minPtr)
-				minPtr = *(random_array + i);
-		}
-		return minPtr;
+		minVal = minf(fft, nBands);
 	}
-	void update() {}
 
 private:
 	void drawDefaultLayer0()
 	{
-		ofClear(0);
-		float barSize;
-		float hue_;
-		for (int i = 0; i < nBands; i++)
+		for (int i = 0; i < nBands-1; i++)
 		{
-			barSize = 1 + _sensibility * (_dampedFft[i] - find_smallest_number(_dampedFft, nBands));
-			hue_ = dt + 255.0 * (float)i / (float)nBands;
+			barSize = 1 + _sensibility * (fft[i] + fft[i+1]/5 - minVal);
+			hue_ = dt + 255.f * (float)i / (float)nBands;
 			hue_ = fmodf(hue_, 255);
 
-			barColor.setHue(hue_);
-			ofSetColor(barColor);
+			fillColor.setHue(hue_);
+			ofSetColor(fillColor);
 
+			// Bottom Right
 			rect.x = halfWidth + i * barLength;
 			rect.height = barSize;
 			ofDrawRectangle(rect);
 
+			// Top Right
 			rect.height = -rect.height;
 			ofDrawRectangle(rect);
 
+			// Bottom Left
 			rect.x = halfWidth - i * barLength;
 			rect.height = barSize;
 			ofDrawRectangle(rect);
 
+			// Top left
 			rect.height = -rect.height;
 			ofDrawRectangle(rect);
 		}
+		// Fading
+		ofSetColor(0, 0, 0, 600.f / ofGetFrameRate());
+		ofDrawRectangle(0,0,width,height);
 	}
 };

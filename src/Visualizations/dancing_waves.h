@@ -3,30 +3,39 @@
 
 class DancingWaves : public VisualizationMode
 {
-	const size_t N_WAVES = 50;
+	const size_t nWaves = 50;
 	ofColor barColor = ofColor::fromHsb(0, 255, 255);
 	float* waves;
-	float wavesSize, smallRadius, waveDistance;
+	float wavesSize, smallRadius, waveDistance, hue_, barSize, angle;
+	ofPolyline polyline;
+	ofPoint p;
 
 public:
 	DancingWaves(FftConfig* fftConfig) : VisualizationMode("DacingWaves", fftConfig)
 	{
+		//Settings
 		_sensibility = 50;
-		_dtSpeed = 2,0;
+		_dtSpeed = 20;
+
+		//FFT Post-Processing
 		configIgnoredIndices(0, 0.5);
+		configAutoCombineBands(8);
 		configAutoDamper(1.04);
 		configAutoRescale(0.5, 0.025, 0.9);
+
+		//Initial Graphics settings
 		ofBackground(0, 0, 0);
-		configAutoCombineBands(8);
 		ofEnableAlphaBlending();
 		ofSetFrameRate(30);
 		ofSetLineWidth(1);
 		barColor.setSaturation(255);
 		barColor.setBrightness(255);
 		_windowResized();
-		waves = (float*)malloc(N_WAVES * nBands_combined * sizeof(float));
-		memset(waves, 0, N_WAVES * nBands_combined * sizeof(float));
 		addLayerFunction([&] { drawDefaultLayer0(); });
+		
+		//Malloc
+		waves = (float*)malloc(nWaves * nBands * sizeof(float));
+		memset(waves, 0, nWaves * nBands * sizeof(float));
 	}
 	~DancingWaves()
 	{
@@ -36,23 +45,20 @@ public:
 	void windowResized()
 	{
 		smallRadius = halfHeight / 10;
-		waveDistance = (height - smallRadius * 2) / (3 * N_WAVES);
+		waveDistance = (height - smallRadius * 2) / (3 * nWaves);
 	}
-	void keyPressed(int key) {}
-	void keyReleased(int key) {}
-	void update() {}
+	void update()
+	{
+		dampWaves();
+	}
 
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
-		dampWaves();
-		float hue_;
-		float barSize;
 		barColor.setSaturation(125);
-		ofPolyline polyline;
-		ofPoint p;
-		float angle = PI;
-		for (int j = N_WAVES-1; j >= 0; j--)
+
+		// Draws all waves
+		for (int j = nWaves-1; j >= 0; j--)
 		{
 			hue_ = fmodf(dt + j, 255);
 			barColor.setHue(hue_);
@@ -60,42 +66,47 @@ public:
 			p.z = 0;
 			polyline.clear();
 			polyline.setClosed(true);
-			angle -= PI / (nBands_combined - 1) / 2;
-			barColor.setBrightness(255*(N_WAVES - j + 2) / N_WAVES);
+			angle -= PI / (nBands - 1) / 2;
+			barColor.setBrightness(255*(nWaves - j + 2) / nWaves);
 			ofSetColor(barColor,255);
-			for (int i = 0; i < nBands_combined; i++)
+			// Right vertices
+			for (int i = 0; i < nBands; i++)
 			{
-				p.x = halfWidth + (smallRadius + waveDistance * j + waves[i + nBands_combined * j] * _sensibility) * sinf(angle);
-				p.y = halfHeight + (smallRadius + waveDistance * j + waves[i + nBands_combined * j] * _sensibility) * cosf(angle);
+				p.x = halfWidth + (smallRadius + waveDistance * j + waves[i + nBands * j] * _sensibility) * sinf(angle);
+				p.y = halfHeight + (smallRadius + waveDistance * j + waves[i + nBands * j] * _sensibility) * cosf(angle);
 				polyline.curveTo(p);
-				angle += PI / (nBands_combined - 1);
+				angle += PI / (nBands - 1);
 			}
-			for (int i = nBands_combined - 1; i >= 0; i--)
+			// Left vertices
+			for (int i = nBands - 1; i >= 0; i--)
 			{
-				p.x = halfWidth + (smallRadius + waveDistance * j + waves[i + nBands_combined * j] * _sensibility) * sinf(angle);
-				p.y = halfHeight + (smallRadius + waveDistance * j + waves[i + nBands_combined * j] * _sensibility) * cosf(angle);
+				p.x = halfWidth + (smallRadius + waveDistance * j + waves[i + nBands * j] * _sensibility) * sinf(angle);
+				p.y = halfHeight + (smallRadius + waveDistance * j + waves[i + nBands * j] * _sensibility) * cosf(angle);
 				polyline.curveTo(p);
-				angle += PI / (nBands_combined - 1);
+				angle += PI / (nBands - 1);
 			}
 			polyline.draw();
 		}
+		// Center area (filled with alpha color)
 		angle = PI;
-		angle -= PI / (nBands_combined - 1) / 2;
-		ofSetColor(barColor, 120);
+		angle -= PI / (nBands - 1) / 2;
+		ofSetColor(barColor, 200);
 		ofBeginShape();
-		for (int i = 0; i < nBands_combined; i++)
+		// Right vertices
+		for (int i = 0; i < nBands; i++)
 		{
-			p.x = halfWidth + (smallRadius + _combinedFft[i] * _sensibility) * sinf(angle);
-			p.y = halfHeight + (smallRadius + _combinedFft[i] * _sensibility) * cosf(angle);
+			p.x = halfWidth + (smallRadius + fft[i] * _sensibility) * sinf(angle);
+			p.y = halfHeight + (smallRadius + fft[i] * _sensibility) * cosf(angle);
 			ofCurveVertex(p.x, p.y);
-			angle += PI / (nBands_combined - 1);
+			angle += PI / (nBands - 1);
 		}
-		for (int i = nBands_combined - 1; i >= 0; i--)
+		// Left vertices
+		for (int i = nBands - 1; i >= 0; i--)
 		{
-			p.x = halfWidth + (smallRadius + _combinedFft[i] * _sensibility) * sinf(angle);
-			p.y = halfHeight + (smallRadius + _combinedFft[i] * _sensibility) * cosf(angle);
+			p.x = halfWidth + (smallRadius + fft[i] * _sensibility) * sinf(angle);
+			p.y = halfHeight + (smallRadius + fft[i] * _sensibility) * cosf(angle);
 			ofCurveVertex(p.x, p.y);
-			angle += PI / (nBands_combined - 1);
+			angle += PI / (nBands - 1);
 		}
 		ofEndShape();
 	}
@@ -103,10 +114,11 @@ public:
 private:
 	void dampWaves()
 	{
-		for (int i = N_WAVES - 1; i > 0; i--)
+		// Moves the bands to the following position
+		for (int i = nWaves - 1; i > 0; i--)
 		{
-			memcpy(waves + i * nBands_combined, waves + (i - 1) * nBands_combined, nBands_combined * sizeof(float));
+			memcpy(waves + i * nBands, waves + (i - 1) * nBands, nBands * sizeof(float));
 		}
-		memcpy(waves, _combinedFft, nBands_combined * sizeof(float));
+		memcpy(waves, fft, nBands * sizeof(float));
 	}
 };

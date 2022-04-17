@@ -198,6 +198,7 @@ if errorlevel 1 exit 0 else exit %errorlevel%</Command>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utils.cpp" />
     <ClCompile Include="src\Visualizations\visualization_loader.cpp" />
+    <ClCompile Include="src\Visualizations\visualization_mode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AudioCapture\audio_capture.h" />
@@ -215,7 +216,6 @@ if errorlevel 1 exit 0 else exit %errorlevel%</Command>
     <ClInclude Include="src\Visualizations\rainbow_bars.h" />
     <ClInclude Include="src\Visualizations\milk_way.h" />
     <ClInclude Include="src\Visualizations\super_nova.h" />
-    <ClInclude Include="src\Visualizations\test_mode.h" />
     <ClInclude Include="src\Visualizations\visualization_list.h" />
     <ClInclude Include="src\Visualizations\visualization_loader.h" />
     <ClInclude Include="src\Visualizations\visualization_mode.h" />

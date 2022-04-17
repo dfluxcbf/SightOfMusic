@@ -25,6 +25,9 @@
     <ClCompile Include="src\utils.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Visualizations\visualization_mode.cpp">
+      <Filter>src\Visualizations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -78,9 +81,6 @@
       <Filter>src\Visualizations\Modes</Filter>
     </ClInclude>
     <ClInclude Include="src\Visualizations\super_nova.h">
-      <Filter>src\Visualizations\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\test_mode.h">
       <Filter>src\Visualizations\Modes</Filter>
     </ClInclude>
     <ClInclude Include="src\Visualizations\dancing_waves.h">

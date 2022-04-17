@@ -1,7 +1,5 @@
 #pragma once
 
-#include "test_mode.h"
-
 #include "rainbow_bars.h"
 #include "bars_reflections.h"
 #include "super_nova.h"

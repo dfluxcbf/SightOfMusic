@@ -3,7 +3,7 @@
 
 class FloatingDiamonds : public VisualizationMode
 {
-	const float nSqrSide = 10, permanence = 200, growLevel = 1.2;
+	const float nSqrSide = 10, permanence = 200, growLevel = 1.5;
 	const size_t nSquares = (int)(nSqrSide * nSqrSide + (nSqrSide - 1) * (nSqrSide - 1));
 	float increase, currentSize, spacing, hue, x, y;
 	size_t index;
@@ -14,32 +14,41 @@ class FloatingDiamonds : public VisualizationMode
 public:
 	FloatingDiamonds(FftConfig* fftConfig) : VisualizationMode("FloatingDiamonds", fftConfig)
 	{
+		//Settings
 		_sensibility = 15;
 		_dtSpeed = 5;
-		configIgnoredIndices(0, 0.4);
+
+		//FFT Post-Processing
+		configIgnoredIndices(0, (float)(nBands - nSquares) / (float)nBands);
 		configAutoDamper(1.09);
 		configAutoRescale(1, -1.f / (nBands * 0.98), 0.4);
+
+		//Initial Graphics settings
 		ofBackground(0,0,0);
 		ofSetLineWidth(2);
+		addLayerFunction([&] { drawDefaultLayer0(); });
 		_windowResized();
+
+		//Malloc
 		pulse = (float*)malloc(nBands * sizeof(float));
 		memset(pulse, 0, nBands * sizeof(float));
-		addLayerFunction([&] { drawDefaultLayer0(); });
 	}
 
 	void windowResized()
 	{
 		spacing = halfHeight / (nSqrSide + 1);
 	}
-	void keyPressed(int key) {}
-	void keyReleased(int key) {}
 	void update()
 	{
 		increase = 0;
 		index = 0;
+		// Pulse is the size of each square based on a single frequency
+		// Changes are smoothen
+		// It grows with growLevel
+		// It reduces with permanence
 		for (int i = 0; i < nBands; i++)
 		{
-			pulse[i] = growLevel * _fft[i] / permanence + pulse[i] * (permanence - 1) / permanence;
+			pulse[i] = growLevel * fft[i] / permanence + pulse[i] * (permanence - 1) / permanence;
 		}
 	}
 
@@ -47,24 +56,26 @@ private:
 	void drawDefaultLayer0()
 	{
 		ofClear(0);
-		fillC.setSaturation(191); //75%
-		edgeC.setSaturation(191); //75%
 		edgeC.setBrightness(230); //90%
+		edgeC.setSaturation(191); //75%
+
+		// Draw all squares, line by line
 		for (float i = -nSqrSide + 1; i <= nSqrSide - 1; i++)
 		{
-			for (float j = -(increase + 1) / 2; j < (increase + 1) / 2; j++) {
+			// Draw each square in the line
+			for (float j = -(increase + 1) / 2; j < (increase + 1) / 2; j++, index++) {
 				currentSize = min(pulse[index]* _sensibility + 2, spacing + 2);
 				x = halfWidth + (j + 0.5) * spacing;
 				y = halfHeight + i * spacing;
 				hue = fmodf((255 * distancef(x, y, halfWidth, halfHeight) / halfHeight + dt) , 255);
+				fillC.setBrightness(200 * min(fft[index], spacing));
+				fillC.setSaturation(191); //75%
 				fillC.setHue(hue);
-				fillC.setBrightness(200*min(_fft[index], spacing));
 				edgeC.setHue(hue);
 
 				ofPushMatrix();
-				ofTranslate(x, y);
-				ofRotate(45);
-
+				ofTranslate(x, y); // Center the square
+				ofRotate(45); // Rotate the square
 				rect.x = -currentSize / 2;
 				rect.y = -currentSize / 2;
 				rect.width = currentSize;
@@ -73,8 +84,10 @@ private:
 					ofDrawRectangle(rect);
 				)
 				ofPopMatrix();
-				index++;
 			}
+			// Changes the number of squares per line
+			// First line has 1 square, second has 3, so on.
+			// After half of them is drawn, it reduces the number of squares
 			if (i < 0) increase += 2;
 			else increase -= 2;
 		}
