@@ -210,6 +210,25 @@ void VisualizationMode::configAutoCombineBands(size_t nBandsToCombine)
 	postProcessingFunctions.push_back(combine);
 }
 
+void VisualizationMode::configAutoMinRatio()
+{
+	PostProcessingRef* combine = new PostProcessingRef("MinRatio", &_fft, &_nBands, _nBands);
+	combine->registerFunction(
+		[combine] {
+			float min, max, ratio;
+			min = minf(combine->_fftRefToFunction, combine->_nBandsRefToFunction);
+			max = maxf(combine->_fftRefToFunction, combine->_nBandsRefToFunction);
+			ratio = max / (max - min);
+			for (int i = 0; i < combine->_nBandsRefToFunction; i++)
+			{
+				combine->_fftResultToFunction[i] = combine->_fftRefToFunction[i] - min;
+				combine->_fftResultToFunction[i] *= ratio;
+			}
+		}
+	);
+	postProcessingFunctions.push_back(combine);
+}
+
 void VisualizationMode::configIgnoredIndices(float percentageBegining, float percentageEnd)
 {
 	if (percentageBegining + percentageEnd > 0.95)

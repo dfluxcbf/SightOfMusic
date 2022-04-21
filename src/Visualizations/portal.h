@@ -9,7 +9,6 @@ class Portal : public VisualizationMode
         lineLength,
         f1 = 0, f2 = 0, f3 = 0,
         f1Acc = 0, f2Acc = 0,
-        minFft = 0,
         centerY, centerX,
         fps, avg;
     int index = 0;
@@ -24,9 +23,10 @@ public:
 
         //FFT Post-Processing
         configIgnoredIndices(0, 0.5);
+        configAutoMinRatio();
         configAutoCombineBands(16);
         configAutoDamper(1.06);
-        configAutoRescale(0.7, 0.002, 0.4);
+        configAutoRescale(0.6, 0.004, 0.4);
 
         //Initial Graphics settings
         ofBackground(0, 0, 0);
@@ -37,7 +37,7 @@ public:
         fillColor.setSaturation(100);
         fillColor.setBrightness(255);
         ofSetCircleResolution(nBands);
-        addLayerFunction([&] { drawDefaultLayer0(); });
+        addLayerFunction([this] { drawDefaultLayer0(); });
     }
     ~Portal() {}
 
@@ -53,15 +53,14 @@ public:
         // Updates portal position
         // Moving around like crazy
         f1 = 0.98 * f1 + 0.02 * avg;
-        f1Acc += 0.312 * (f1 + f2 * 0.01) / (3 * fps + 1.f);
+        f1Acc += 0.312 * (f1 + f2 * 0.01) / (fps + 1.f);
         f2 = 0.95 * f1 + 0.05 * avg;
-        f2Acc += 0.865 * (f2 + f1 * 0.05) / (3 * fps + 1.f);
-        f3 += _sensibility * (avg + f1 * 0.01 + f2 * 0.02) / (300 * fps + 1.f);
+        f2Acc += 0.865 * (f2 + f1 * 0.05) / (fps + 1.f);
+        f3 += _sensibility * (avg + f1 * 0.01 + f2 * 0.02) / (100 * fps + 1.f);
         centerX = halfWidth * (0.35 * sin(f1Acc) + 0.05 * sin(f3) + 0.05 * cos(f2Acc) + 0.1 * cos((f2Acc + f1Acc) / 1) * sin((f2Acc + f1Acc)) + 0.025 * sin(f3 - f1Acc));
         centerY = halfHeight * (0.25 * sin(f2Acc) + 0.05 * cos(f3) + 0.05 * cos(f1Acc) + 0.1 * cos((f2Acc + f1Acc) / 1) * sin((f2Acc + f1Acc)) + 0.025 * sin(f3 - f2Acc));
         
-        minFft = minf(fft, nBands) / 4;
-        fillColor.setHue(fmodf(dt * 125, 255.f));
+        fillColor.setHue(fmodf(dt * 75, 255.f));
     }
 
 private:
@@ -80,7 +79,7 @@ private:
         for (int i = 0; i < 2 * nBands; i++)
         {
             index = (i < nBands ? i : 2 * nBands - 1 - i);
-            lineLength = 0.25 * radius + (fft[index] - minFft) * _sensibility;
+            lineLength = 0.25 * radius + fft[index] * _sensibility;
 
             // Bar start angle
             rotation = i * TWO_PI / float(2 * nBands);

@@ -11,10 +11,10 @@ float averagef(const float* const array_, size_t size_)
 	return value;
 }
 
-float distancef(coordinate* c1, coordinate* c2)
+float distancef(ofPoint* p1, ofPoint* p2)
 {
-	return sqrt(powf(c1->x - c2->x, 2) +
-		        powf(c1->y - c2->y, 2));
+	return sqrt(powf(p1->x - p2->x, 2) +
+		        powf(p1->y - p2->y, 2));
 }
 float distancef(float x1, float y1, float x2, float y2)
 {
@@ -42,7 +42,38 @@ float maxf(const float* const array, size_t size)
 	return _maxVal;
 }
 
+float sumf(const float* const array, size_t size)
+{
+	float sum = 0;
+	for (int i = 1; i < size; i++)
+	{
+		sum += array[i];
+	}
+	return sum;
+}
+
 int calcCircleRes(float radius)
 {
 	return (int)(9.7 + radius / 3.9);
+}
+
+ofPoint intersection(Line AB, Line CD) {
+	// Line AB represented as a1x + b1y = c1
+	float a = AB.p2.y - AB.p1.y;
+	float b = AB.p1.x - AB.p2.x;
+	float c = a * (AB.p1.x) + b * (AB.p1.y);
+	// Line CD represented as a2x + b2y = c2
+	float a1 = CD.p2.y - CD.p1.y;
+	float b1 = CD.p1.x - CD.p2.x;
+	float c1 = a1 * (CD.p1.x) + b1 * (CD.p1.y);
+
+	float det = a * b1 - a1 * b;
+	if (det == 0) {
+		return ofPoint{ INFINITY, INFINITY };
+	}
+	else {
+		float x = (b1 * c - b * c1) / det;
+		float y = (a * c1 - a1 * c) / det;
+		return ofPoint{ x, y };
+	}
 }

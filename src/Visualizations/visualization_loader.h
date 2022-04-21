@@ -3,7 +3,7 @@
 #include "AudioCapture/audio_capture.h"
 #include "visualization_mode.h"
 
-#define N_VIS 7
+#define N_VIS 8
 
 class VisualizationLoader : public ofBaseApp {
 	AudioSink* _sink;

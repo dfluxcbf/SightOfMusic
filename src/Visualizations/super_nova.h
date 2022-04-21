@@ -15,14 +15,15 @@ public:
 	SuperNova(FftConfig* fftConfig) : VisualizationMode("SuperNova", fftConfig)
 	{
 		//Settings
-		_sensibility = 300;
+		_sensibility = 500;
 		_dtSpeed = 6;
 
 		//FFT Post-Processing
 		configIgnoredIndices(0, 0.5);
-		configAutoCombineBands(4);
+		configAutoCombineBands(8);
 		configAutoDamper(initDamp);
-		configAutoRescale(0.8, 0.002, 0.3);
+		configAutoRescale(0.6, 0.0025, 0.4);
+
 		ofSetLineWidth(3);
 		ofBackground(0, 0, 0);
 		_windowResized();

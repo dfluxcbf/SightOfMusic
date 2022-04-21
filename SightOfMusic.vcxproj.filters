@@ -98,6 +98,12 @@
     <ClInclude Include="src\utils.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Visualizations\pillars.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\vis_development.h">
+      <Filter>src\Visualizations\Modes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

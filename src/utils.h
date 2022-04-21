@@ -1,4 +1,5 @@
 #pragma once
+#include "ofMain.h"
 
 #define INT(x) (int)(x)
 
@@ -24,14 +25,16 @@
 #define DEBUG(x)
 #endif
 
-struct coordinate
+struct Line
 {
-	float x, y;
+    ofPoint p1, p2;
 };
 
 float averagef(const float* const array_, size_t size_);
-float distancef(coordinate* c1, coordinate* c2);
+float distancef(ofPoint* p1, ofPoint* p2);
 float distancef(float x1, float y1, float x2, float y2);
 float minf(const float* const array, size_t size);
 float maxf(const float* const array, size_t size);
+float sumf(const float* const array, size_t size);
 int calcCircleRes(float radius);
+ofPoint intersection(Line AB, Line CD);

@@ -1,12 +1,10 @@
 #pragma once
 #include "visualization_mode.h"
 
-#define _DEVELOPING_ RainbowBars
-
 class RainbowBars : public VisualizationMode
 {
 	ofColor fillColor = ofColor::fromHsb(0, 255, 255);
-	float barLength = 0, minVal = 0, barSize = 0, hue_ = 0;
+	float barLength = 0, barSize = 0, hue_ = 0;
 	ofRectangle rect;
 
 public:
@@ -14,10 +12,10 @@ public:
 	{
 		//Settings
 		_sensibility = 220;
-		_dtSpeed = 35;
 		configIgnoredIndices(0,0.5);
-		configAutoRescale(1, 0.01f / nBands, 0.4);
+		configAutoRescale(0.9, 0.02f / nBands, 0.33);
 		configAutoDamper(1.04);
+		configAutoMinRatio();
 
 		//Initial Graphics settings
 		ofBackground(0, 0, 0);
@@ -25,26 +23,28 @@ public:
 		fillColor.setSaturation(255);
 		fillColor.setBrightness(255);
 		_windowResized();
-		addLayerFunction([&] { drawDefaultLayer0(); });
+		addLayerFunction([this] { drawDefaultLayer0(); });
 	}
 
 	void windowResized()
 	{
-		barLength = halfWidth / nBands;
+		barLength = halfWidth / (nBands+1);
 		rect.width = barLength;
 		rect.y = halfHeight;
 	}
 	void update()
 	{
-		minVal = minf(fft, nBands);
+		avg = averagef(fft, nBands);
+		_dtSpeed = 600 * avg * avg * avg;
 	}
 
 private:
+	float avg;
 	void drawDefaultLayer0()
 	{
-		for (int i = 0; i < nBands-1; i++)
+		for (int i = 0; i < nBands; i++)
 		{
-			barSize = 1 + _sensibility * (fft[i] + fft[i+1]/5 - minVal);
+			barSize = 1 + _sensibility * fft[i];
 			hue_ = dt + 255.f * (float)i / (float)nBands;
 			hue_ = fmodf(hue_, 255);
 
@@ -70,7 +70,7 @@ private:
 			ofDrawRectangle(rect);
 		}
 		// Fading
-		ofSetColor(0, 0, 0, 600.f / ofGetFrameRate());
+		ofSetColor(0, 0, 0, 800.f / ofGetFrameRate());
 		ofDrawRectangle(0,0,width,height);
 	}
 };

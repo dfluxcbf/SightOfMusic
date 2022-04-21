@@ -54,7 +54,8 @@ void VisualizationLoader::draw() {
     }
 }
 void VisualizationLoader::keyPressed(int key) {
-    auto action = keyActions.find(key);
+    char _key = key;
+    auto action = keyActions.find(tolower(_key));
     if (action != keyActions.end()) {
         action->second();
     }
@@ -100,6 +101,9 @@ void VisualizationLoader::SwitchVisualization(int index)
         break;
     case 6: // Portal
         vm = (VisualizationMode*) new Portal(&fftConfig);
+        break;
+    case 7: // Pillars
+        vm = (VisualizationMode*) new Pillars(&fftConfig);
         break;
 
     // Default

@@ -14,14 +14,14 @@ public:
 	DancingWaves(FftConfig* fftConfig) : VisualizationMode("DacingWaves", fftConfig)
 	{
 		//Settings
-		_sensibility = 50;
-		_dtSpeed = 20;
+		_sensibility = 150;
+		_dtSpeed = 5;
 
 		//FFT Post-Processing
 		configIgnoredIndices(0, 0.5);
-		configAutoCombineBands(8);
-		configAutoDamper(1.04);
-		configAutoRescale(0.5, 0.025, 0.9);
+		configAutoCombineBands(16);
+		configAutoRescale(0.5, 0.025, 0.5);
+		configAutoDamper(1.02);
 
 		//Initial Graphics settings
 		ofBackground(0, 0, 0);
@@ -31,7 +31,7 @@ public:
 		barColor.setSaturation(255);
 		barColor.setBrightness(255);
 		_windowResized();
-		addLayerFunction([&] { drawDefaultLayer0(); });
+		addLayerFunction([this] { drawDefaultLayer0(); });
 		
 		//Malloc
 		waves = (float*)malloc(nWaves * nBands * sizeof(float));

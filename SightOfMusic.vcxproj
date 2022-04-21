@@ -212,6 +212,7 @@ if errorlevel 1 exit 0 else exit %errorlevel%</Command>
     <ClInclude Include="src\Visualizations\bars_reflections.h" />
     <ClInclude Include="src\Visualizations\dancing_waves.h" />
     <ClInclude Include="src\Visualizations\floating_diamonds.h" />
+    <ClInclude Include="src\Visualizations\pillars.h" />
     <ClInclude Include="src\Visualizations\portal.h" />
     <ClInclude Include="src\Visualizations\rainbow_bars.h" />
     <ClInclude Include="src\Visualizations\milk_way.h" />
@@ -219,6 +220,7 @@ if errorlevel 1 exit 0 else exit %errorlevel%</Command>
     <ClInclude Include="src\Visualizations\visualization_list.h" />
     <ClInclude Include="src\Visualizations\visualization_loader.h" />
     <ClInclude Include="src\Visualizations\visualization_mode.h" />
+    <ClInclude Include="src\Visualizations\vis_development.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

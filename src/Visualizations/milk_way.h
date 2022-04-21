@@ -29,8 +29,8 @@ public:
 		barColor.setSaturation(255);
 		barColor.setBrightness(255);
 		_windowResized();
-		addLayerFunction([&] {drawDefaultLayer0(); });
-		addLayerFunction([&] {drawLayer1(); });
+		addLayerFunction([this] {drawDefaultLayer0(); });
+		addLayerFunction([this] {drawLayer1(); });
 		DEBUG(
 			setDebugLayerFunction([this] {drawDebugLayer(); });
 		);
@@ -124,7 +124,7 @@ protected:
 				centerDis = 7 * (i - 3 * (nRings + 1) / 4);
 				x = halfWidth + (i + 1) * spacing * sinf(starAngle + ringRotation);
 				y = halfHeight + centerDis + 0.6 * (i + 1) * spacing * cosf(starAngle + ringRotation);
-				r = 1 + fft[(nRings - 1 - i) * nBranches + j] * _sensibility / 10 * (1 + 0.6 * cosf(starAngle + ringRotation));
+				r = 1 + fft[(nRings - 1 - i) * nBranches + j] * _sensibility  * (1 + 0.6 * cosf(starAngle + ringRotation)) / 4;
 				// Draws
 				ofSetLineWidth(2);
 				DRAW_W_EDGES_A(fillC, edgeC, 0.6 * 255, 1 * 255,

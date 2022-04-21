@@ -3,30 +3,34 @@
 
 class FloatingDiamonds : public VisualizationMode
 {
-	const float nSqrSide = 10, permanence = 200, growLevel = 1.5;
+	const float nSqrSide = 14, permanence = 200, growLevel = 2.5;
 	const size_t nSquares = (int)(nSqrSide * nSqrSide + (nSqrSide - 1) * (nSqrSide - 1));
-	float increase, currentSize, spacing, hue, x, y;
+	float increase, currentSize, spacing, hue;
 	size_t index;
 	float* pulse;
 	ofColor edgeC, fillC;
 	ofRectangle rect;
+	ofPoint p;
 
 public:
 	FloatingDiamonds(FftConfig* fftConfig) : VisualizationMode("FloatingDiamonds", fftConfig)
 	{
+		LOG("\t- Number of diamonds: %d", nSquares);
 		//Settings
-		_sensibility = 15;
-		_dtSpeed = 5;
+		_sensibility = 10;
+		_dtSpeed = 8;
 
 		//FFT Post-Processing
+		configIgnoredIndices(0, 0.5);
+		configAutoCombineBands(nBands/nSquares);
 		configIgnoredIndices(0, (float)(nBands - nSquares) / (float)nBands);
+		configAutoRescale(1, 0, 0.5);
 		configAutoDamper(1.09);
-		configAutoRescale(1, -1.f / (nBands * 0.98), 0.4);
 
 		//Initial Graphics settings
 		ofBackground(0,0,0);
 		ofSetLineWidth(2);
-		addLayerFunction([&] { drawDefaultLayer0(); });
+		addLayerFunction([this] { drawDefaultLayer0(); });
 		_windowResized();
 
 		//Malloc
@@ -65,16 +69,16 @@ private:
 			// Draw each square in the line
 			for (float j = -(increase + 1) / 2; j < (increase + 1) / 2; j++, index++) {
 				currentSize = min(pulse[index]* _sensibility + 2, spacing + 2);
-				x = halfWidth + (j + 0.5) * spacing;
-				y = halfHeight + i * spacing;
-				hue = fmodf((255 * distancef(x, y, halfWidth, halfHeight) / halfHeight + dt) , 255);
-				fillC.setBrightness(200 * min(fft[index], spacing));
+				p.x = halfWidth + (j + 0.5) * spacing;
+				p.y = halfHeight + i * spacing;
+				hue = fmodf((255 * distancef(p.x, p.y, halfWidth, halfHeight) / halfHeight + dt) , 255);
+				fillC.setBrightness(200 * min(_sensibility*fft[index]/50, 1.f));
 				fillC.setSaturation(191); //75%
 				fillC.setHue(hue);
 				edgeC.setHue(hue);
 
 				ofPushMatrix();
-				ofTranslate(x, y); // Center the square
+				ofTranslate(p.x, p.y); // Center the square
 				ofRotate(45); // Rotate the square
 				rect.x = -currentSize / 2;
 				rect.y = -currentSize / 2;

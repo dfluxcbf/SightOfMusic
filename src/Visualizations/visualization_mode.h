@@ -97,6 +97,7 @@ protected:
 	float fpsRelativeDamp(float _damper);
 	void configAutoRescale(float base, float multiplier, float power);
 	void configAutoCombineBands(size_t nBandsToCombine);
+	void configAutoMinRatio();
 	void configIgnoredIndices(float percentageBegining, float percentageEnd);
 	void addKeyAction(char key, std::function<void()> action);
 	DEBUG(

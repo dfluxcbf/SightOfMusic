@@ -16,10 +16,10 @@ public:
 		_dtSpeed = 5;
 
 		//FFT Post-Processing
-		configIgnoredIndices(0, 0.4);
+		configIgnoredIndices(0, 0.5);
 		configAutoCombineBands(4);
-		configAutoDamper(1.04);
-		configAutoRescale(1, 0.002, 0.5);
+		configAutoRescale(1, 0.0025, 0.5);
+		configAutoDamper(1.03);
 
 		//Initial Graphics settings
 		ofBackground(0, 0, 0);
@@ -27,7 +27,7 @@ public:
 		barColor.setSaturation(100);
 		barColor.setBrightness(180);
 		_windowResized();
-		addLayerFunction([&] { drawDefaultLayer0(); });
+		addLayerFunction([this] { drawDefaultLayer0(); });
 	}
 
 	void windowResized()
@@ -50,7 +50,7 @@ private:
 		for (int i = 0; i < nBands; i++)
 		{
 			barSize = 10 + _sensibility * fft[i];
-			hue_ = dt + 510.0 * (float)i / (float)nBands;
+			hue_ = dt + 100.0 * (float)i / (float)nBands;
 			hue_ = fmodf(hue_, 255);
 			barColor.setHue(hue_);
 
