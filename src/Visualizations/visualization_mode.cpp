@@ -8,13 +8,15 @@ VisualizationMode::VisualizationMode(string name, FftConfig* fftConfig) : _name(
 	LOG("______________________________________________");
 	std::cout << "Starting Visualization: " << _name << std::endl;
 	config();
+	ofEnableAntiAliasing();
+	ofEnableSmoothing();
+	ofSetFrameRate(NULL);
+	ofSetLineWidth(2);
+	ofFill();
 }
 
 VisualizationMode::~VisualizationMode()
 {
-	ofSetFrameRate(NULL);
-	ofSetLineWidth(1);
-	ofFill();
 	for (int i = 0; i < layers.size(); i++)
 	{
 		layers[i].destroy();
@@ -198,12 +200,7 @@ void VisualizationMode::configAutoCombineBands(size_t nBandsToCombine)
 		[combine, nBandsToCombine] {
 			for (int i = 0; i < combine->_nBandsResultToFunction; i++)
 			{
-				combine->_fftResultToFunction[i] = 0;
-				for (int j = 0; j < nBandsToCombine; j++)
-				{
-					combine->_fftResultToFunction[i] += combine->_fftRefToFunction[nBandsToCombine * i + j];
-				}
-				combine->_fftResultToFunction[i] /= nBandsToCombine;
+				combine->_fftResultToFunction[i] = averagef(&combine->_fftRefToFunction[nBandsToCombine * i], nBandsToCombine);
 			}
 		}
 	);
@@ -215,10 +212,13 @@ void VisualizationMode::configAutoMinRatio()
 	PostProcessingRef* combine = new PostProcessingRef("MinRatio", &_fft, &_nBands, _nBands);
 	combine->registerFunction(
 		[combine] {
-			float min, max, ratio;
+			float min, max, ratio = 1;
 			min = minf(combine->_fftRefToFunction, combine->_nBandsRefToFunction);
 			max = maxf(combine->_fftRefToFunction, combine->_nBandsRefToFunction);
-			ratio = max / (max - min);
+			if (max != min)
+			{
+				ratio = max / (max - min);
+			}
 			for (int i = 0; i < combine->_nBandsRefToFunction; i++)
 			{
 				combine->_fftResultToFunction[i] = combine->_fftRefToFunction[i] - min;
@@ -260,3 +260,19 @@ DEBUG(
 		debugLayer.end();
 	}
 );
+
+void VisualizationMode::drawFftHistogram(int x, int y)
+{
+	ofClear(0);
+	ofPushMatrix();
+	ofTranslate(x, y);
+	ofSetColor(0, 0, 0, 210);
+	ofDrawRectangle(0, 0, nBands, -0.5 * halfHeight);
+	ofSetColor(255, 255, 255);
+	ofSetLineWidth(1);
+	for (int i = 0; i < nBands; i++)
+	{
+		ofDrawLine(i, 0, i, -0.3 * halfHeight * fft[i]);
+	}
+	ofPopMatrix();
+}

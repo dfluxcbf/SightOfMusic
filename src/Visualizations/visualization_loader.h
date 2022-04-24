@@ -3,7 +3,7 @@
 #include "AudioCapture/audio_capture.h"
 #include "visualization_mode.h"
 
-#define N_VIS 8
+#define N_VIS 11
 
 class VisualizationLoader : public ofBaseApp {
 	AudioSink* _sink;
@@ -13,6 +13,7 @@ class VisualizationLoader : public ofBaseApp {
 	FftConfig fftConfig;
 	int visIndex = 0;
 	size_t visOrder[N_VIS];
+	bool lockVis = false;
 	std::map<char, std::function<void()>> keyActions;
 	
 public:

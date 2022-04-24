@@ -25,9 +25,8 @@ public:
 
 		//Initial Graphics settings
 		ofBackground(0, 0, 0);
-		ofEnableAlphaBlending();
 		ofSetFrameRate(30);
-		ofSetLineWidth(1);
+		ofSetLineWidth(2);
 		barColor.setSaturation(255);
 		barColor.setBrightness(255);
 		_windowResized();

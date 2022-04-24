@@ -65,7 +65,7 @@ private:
 			lineSize = _sensibility * fft[i];
 			
 			// Top lines
-			angle = PI / 2 + (i + 0.5) * PI / (nBands - 1);
+			angle = PI / 2 + (i + 0.5) * PI / nBands;
 			sin_ = sinf(angle);
 			cos_ = cosf(angle);
 			// Draw
@@ -77,7 +77,7 @@ private:
 			);
 
 			// Bottom lines
-			angle = PI / 2 - (i + 0.5) * PI / (nBands - 1);
+			angle = PI / 2 - (i + 0.5) * PI / nBands;
 			sin_ = sinf(angle);
 			cos_ = cosf(angle);
 			// Draw
@@ -100,7 +100,7 @@ private:
 
 				// Top sparks
 				// Angle position
-				angle = PI / 2 + (i + 0.5) * PI / (nBands - 1);
+				angle = PI / 2 + (i + 0.5) * PI / nBands;
 				sin_ = sinf(angle);
 				cos_ = cosf(angle);
 				// Draw
@@ -112,7 +112,7 @@ private:
 				);
 				
 				// Bottom sparks
-				angle = PI / 2 - (i + 0.5) * PI / (nBands - 1);
+				angle = PI / 2 - (i + 0.5) * PI / nBands;
 				sin_ = sinf(angle);
 				cos_ = cosf(angle);
 				// Draw
@@ -151,5 +151,4 @@ private:
 			}
 		}
 	}
-
 };

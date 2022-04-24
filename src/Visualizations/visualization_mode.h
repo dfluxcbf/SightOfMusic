@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "ofMain.h"
+#include "ofxPostProcessing.h"
 #include "../utils.h"
 #include "../logging.h"
 
@@ -77,6 +78,8 @@ public:
 	void _update();
 
 protected:
+	ofxPostProcessing post;
+
 	float _sensibility = 50, _dtSpeed = 1;
 
 	const float* const& fft = _fft;
@@ -103,6 +106,7 @@ protected:
 	DEBUG(
 		void setDebugLayerFunction(std::function<void()> newLayerFunction);
 	);
+	void VisualizationMode::drawFftHistogram(int x, int y);
 
 private:
 	void config();

@@ -19,6 +19,11 @@
                             drawF \
                             ofFill();
 
+inline float sigmoidf(float x)
+{
+    return 1 / (1 + expf(-x));
+}
+
 #ifdef _DEBUG
 #define DEBUG(x) x
 #else
@@ -28,6 +33,10 @@
 struct Line
 {
     ofPoint p1, p2;
+    float length()
+    {
+        return sqrtf(powf(p1.x - p2.x, 2) + powf(p1.y - p2.y, 2));
+    }
 };
 
 float averagef(const float* const array_, size_t size_);
@@ -38,3 +47,4 @@ float maxf(const float* const array, size_t size);
 float sumf(const float* const array, size_t size);
 int calcCircleRes(float radius);
 ofPoint intersection(Line AB, Line CD);
+bool isInsideScren(ofPoint p, ofRectangle screen);

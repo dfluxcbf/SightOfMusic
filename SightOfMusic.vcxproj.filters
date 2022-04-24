@@ -1,111 +1,265 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\utils.cpp" />
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\BleachBypassPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\BloomPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ContrastPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ConvolutionPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\DofAltPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\DofPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\EdgePass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\FakeSSSPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\KaleidoscopePass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\LimbDarkeningPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\FxaaPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\GodRaysPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\HorizontalTiltShifPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\HsbShiftPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\LUTPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\NoiseWarpPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClCompile>
     <ClCompile Include="src\AudioCapture\audio_capture.cpp">
-      <Filter>src\AudioCapture</Filter>
+      <Filter>AudioCapture</Filter>
     </ClCompile>
     <ClCompile Include="src\AudioCapture\audio_sink.cpp">
-      <Filter>src\AudioCapture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AudioCapture\sound_wave.cpp">
-      <Filter>src\AudioCapture</Filter>
+      <Filter>AudioCapture</Filter>
     </ClCompile>
     <ClCompile Include="src\AudioCapture\fft_computer.cpp">
-      <Filter>src\AudioCapture</Filter>
+      <Filter>AudioCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\PixelatePass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\PostProcessing.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\RenderPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\RGBShiftPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\RimHighlightingPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioCapture\sound_wave.cpp">
+      <Filter>AudioCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\SSAOPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ToonPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClCompile>
     <ClCompile Include="src\Visualizations\visualization_loader.cpp">
-      <Filter>src\Visualizations</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils.cpp">
-      <Filter>src</Filter>
+      <Filter>Visualization</Filter>
     </ClCompile>
     <ClCompile Include="src\Visualizations\visualization_mode.cpp">
-      <Filter>src\Visualizations</Filter>
+      <Filter>Visualization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\VerticalTiltShifPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ZoomBlurPass.cpp">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\AudioCapture">
-      <UniqueIdentifier>{dec80f27-b18a-4e6f-8e0e-5328e9c3740a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Visualizations">
-      <UniqueIdentifier>{73760da9-06fc-4a5b-a00b-2d913d4adb66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Visualizations\Modes">
-      <UniqueIdentifier>{4e622111-4faf-49c0-b19a-10117ba2755d}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\AudioCapture\audio_capture.h">
-      <Filter>src\AudioCapture</Filter>
+    <ClInclude Include="src\logging.h" />
+    <ClInclude Include="src\utils.h" />
+    <ClInclude Include="src\Visualizations\floating_diamonds.h">
+      <Filter>Visualization\Modes</Filter>
     </ClInclude>
-    <ClInclude Include="src\AudioCapture\audio_sink.h">
-      <Filter>src\AudioCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AudioCapture\sound_wave.h">
-      <Filter>src\AudioCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\logging.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AudioCapture\audio_capture_config.h">
-      <Filter>src\AudioCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AudioCapture\fft_computer.h">
-      <Filter>src\AudioCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AudioCapture\memory_locks.h">
-      <Filter>src\AudioCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\visualization_loader.h">
-      <Filter>src\Visualizations</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\visualization_mode.h">
-      <Filter>src\Visualizations</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\visualization_list.h">
-      <Filter>src\Visualizations</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\bars_reflections.h">
-      <Filter>src\Visualizations\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\rainbow_bars.h">
-      <Filter>src\Visualizations\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Visualizations\super_nova.h">
-      <Filter>src\Visualizations\Modes</Filter>
+    <ClInclude Include="src\Visualizations\fire_flies.h">
+      <Filter>Visualization\Modes</Filter>
     </ClInclude>
     <ClInclude Include="src\Visualizations\dancing_waves.h">
-      <Filter>src\Visualizations\Modes</Filter>
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\FakeSSSPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\BleachBypassPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\BloomPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ContrastPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ConvolutionPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\DofAltPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\DofPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\EdgePass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\bars_reflections.h">
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\LimbDarkeningPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\KaleidoscopePass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\FxaaPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\GodRaysPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\HorizontalTiltShifPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\HsbShiftPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClInclude>
     <ClInclude Include="src\Visualizations\milk_way.h">
-      <Filter>src\Visualizations\Modes</Filter>
+      <Filter>Visualization\Modes</Filter>
     </ClInclude>
-    <ClInclude Include="src\Visualizations\floating_diamonds.h">
-      <Filter>src\Visualizations\Modes</Filter>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\LUTPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="src\Visualizations\portal.h">
-      <Filter>src\Visualizations\Modes</Filter>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ofxPostProcessing.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\NoiseWarpPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\five5.h">
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\rainbow_bars.h">
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\audio_capture.h">
+      <Filter>AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\audio_capture_config.h">
+      <Filter>AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\audio_sink.h">
+      <Filter>AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\fft_computer.h">
+      <Filter>AudioCapture</Filter>
     </ClInclude>
     <ClInclude Include="src\Visualizations\pillars.h">
-      <Filter>src\Visualizations\Modes</Filter>
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\portal.h">
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\PixelatePass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\PostProcessing.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\RenderPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\RGBShiftPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\RimHighlightingPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\sound_wave.h">
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\super_nova.h">
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\SSAOPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ToonPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\visualization_loader.h">
+      <Filter>Visualization</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\visualization_mode.h">
+      <Filter>Visualization</Filter>
     </ClInclude>
     <ClInclude Include="src\Visualizations\vis_development.h">
-      <Filter>src\Visualizations\Modes</Filter>
+      <Filter>Visualization\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\visualization_list.h">
+      <Filter>Visualization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\ZoomBlurPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.11.2_vs2017_release\of_v0.11.2_vs2017_release\addons\ofxPostProcessing\src\VerticalTiltShifPass.h">
+      <Filter>AddOns\ofxPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioCapture\memory_locks.h">
+      <Filter>AudioCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Visualizations\kaleidoskope.h">
+      <Filter>Visualization\Modes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Visualization">
+      <UniqueIdentifier>{b819fed7-2c9e-48f0-91e8-5024b61cc070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Visualization\Modes">
+      <UniqueIdentifier>{5df32352-abbf-42a5-9798-e206b6f2f253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AddOns">
+      <UniqueIdentifier>{0b6bf769-61c3-4147-b226-3fa78a6248cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AddOns\ofxPostProcessing">
+      <UniqueIdentifier>{d3c164c4-f5f7-4c98-9acf-0e78301365f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AudioCapture">
+      <UniqueIdentifier>{dfda02f3-b34e-4cfd-9cee-707a77985819}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

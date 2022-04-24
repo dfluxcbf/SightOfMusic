@@ -23,10 +23,10 @@ public:
 
         //FFT Post-Processing
         configIgnoredIndices(0, 0.5);
-        configAutoMinRatio();
         configAutoCombineBands(16);
+        configAutoRescale(0.6, 0.2/nBands, 0.4);
+        configAutoMinRatio();
         configAutoDamper(1.06);
-        configAutoRescale(0.6, 0.004, 0.4);
 
         //Initial Graphics settings
         ofBackground(0, 0, 0);

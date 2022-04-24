@@ -10,3 +10,9 @@
 #include "floating_diamonds.h"
 #include "portal.h"
 #include "pillars.h"
+#include "fire_flies.h"
+#include "five5.h"
+#include "kaleidoskope.h"
+
+// Shelved
+#include "beach.h"

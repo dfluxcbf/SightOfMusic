@@ -48,7 +48,7 @@ void VisualizationLoader::draw() {
     _sink->GetFftData(fft);
     vm->_update();
     vm->draw();
-    if (ofGetElapsedTimef() >= 600)
+    if (!lockVis && ofGetElapsedTimef() >= 600)
     {
         NextVisualization(visIndex);
     }
@@ -105,7 +105,16 @@ void VisualizationLoader::SwitchVisualization(int index)
     case 7: // Pillars
         vm = (VisualizationMode*) new Pillars(&fftConfig);
         break;
-
+    case 8: // FireFlies
+        vm = (VisualizationMode*) new FireFlies(&fftConfig);
+        break;
+    case 9: // Kaleidoscope
+        vm = (VisualizationMode*) new Five5(&fftConfig);
+        break;
+    case 10: // Kaleidoscope
+        vm = (VisualizationMode*) new Kaleidoskope(&fftConfig);
+        break;
+        
     // Default
     default:
         vm = (VisualizationMode*) new RainbowBars(&fftConfig);
@@ -120,6 +129,11 @@ void VisualizationLoader::configLoader()
         ofToggleFullscreen();
         if (ofGetWindowMode() == OF_FULLSCREEN) ofHideCursor();
         else ofShowCursor(); 
+    };
+    keyActions['l'] = [this] {
+        lockVis = !lockVis;
+        std::cout << "Presentation mode " << (lockVis ? "off" : "on") << "." << std::endl;
+        ofResetElapsedTimeCounter();
     };
 }
 

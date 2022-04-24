@@ -45,7 +45,7 @@ float maxf(const float* const array, size_t size)
 float sumf(const float* const array, size_t size)
 {
 	float sum = 0;
-	for (int i = 1; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		sum += array[i];
 	}
@@ -76,4 +76,25 @@ ofPoint intersection(Line AB, Line CD) {
 		float y = (a * c1 - a1 * c) / det;
 		return ofPoint{ x, y };
 	}
+}
+
+bool isInsideScren(ofPoint p, ofRectangle screen)
+{
+	if (p.x < screen.x)
+	{
+		return false;
+	}
+	if (p.x > screen.x + screen.width)
+	{
+		return false;
+	}
+	if (p.y < screen.y)
+	{
+		return false;
+	}
+	if (p.y > screen.y + screen.height)
+	{
+		return false;
+	}
+	return true;
 }

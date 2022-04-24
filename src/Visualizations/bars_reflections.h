@@ -106,6 +106,6 @@ private:
 		barColor.setSaturation(50);
 		ofSetColor(barColor);
 		ofSetLineWidth(2);
-		ofLine(0, reflectHeight, width, reflectHeight);
+		ofDrawLine(0, reflectHeight, width, reflectHeight);
 	}
 };
